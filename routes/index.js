@@ -3,6 +3,7 @@ var url = require('url');
 
 
 var movies = [];
+var single_movie = [];
 
 var options = {
     url: 'http://webjetapitest.azurewebsites.net/api/cinemaworld/movies',
@@ -32,6 +33,7 @@ exports.single_movie = function(req, res){
     var movie_title = req.query.movie_title;
     var movie = '';
     var movieid = '';
+    var price_cw = ''; 
 
     for(var i=0; i< movies.Movies.length; i++) {
         if((movie_title) == (movies.Movies[i].Title)){
@@ -39,18 +41,26 @@ exports.single_movie = function(req, res){
             movieid = movies.Movies[i].ID;
             break; 
         }
-        else {
-            res.send("Error page not found");
-        }
+       
     }
     
     console.log("Movie id is " +movieid);
 
-    res.render('movie_single', {
-        movies: movies,
-        movie_title: movie_title,
-        movie: movie
-    })
+    //make a http request to api based on specific id 
+    options.url = 'http://webjetapitest.azurewebsites.net/api/cinemaworld/movie/'+movieid ;
+    
+     request(options, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+            single_movie =   JSON.parse(body);   
+            console.log(single_movie.Price);
+            res.render('movie_single', {
+                movies: movies,
+                movie_title: movie_title,
+                movie: movie,
+                single_movie: single_movie
+            })     
+          }
+    }); 
 
 };
 
