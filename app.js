@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 app.get('/',routes.home);
 
 //for single movie
-app.get('/starwars_episode/:episode_number?', routes.single_movie);
+app.get('/starwars_episode', routes.single_movie);
 
 //if the page doesnot exist
 app.get('*', routes.notfound);

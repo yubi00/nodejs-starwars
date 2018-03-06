@@ -1,4 +1,6 @@
 var request = require('request');
+var url = require('url');
+
 
 var movies = [];
 
@@ -9,6 +11,8 @@ var options = {
         'x-access-token':'sjd1HfkjU83ksdsm3802k'
     }
 }
+
+
 //home route
 exports.home =  function(req, res){
     request(options, function(error, response, body){
@@ -24,8 +28,30 @@ exports.home =  function(req, res){
 
 //for single episode
 exports.single_movie = function(req, res){
-    var episode_number = req.params.episode_number;
-    res.send("This is the page for episode "+episode_number);
+    
+    var movie_title = req.query.movie_title;
+    var movie = '';
+    var movieid = '';
+
+    for(var i=0; i< movies.Movies.length; i++) {
+        if((movie_title) == (movies.Movies[i].Title)){
+            movie = movies.Movies[i];
+            movieid = movies.Movies[i].ID;
+            break; 
+        }
+        else {
+            res.send("Error page not found");
+        }
+    }
+    
+    console.log("Movie id is " +movieid);
+
+    res.render('movie_single', {
+        movies: movies,
+        movie_title: movie_title,
+        movie: movie
+    })
+
 };
 
 //if the page doesnot exist
