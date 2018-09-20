@@ -17,11 +17,18 @@
         </div>
         <div class= "row">
             <ul>
-                <% for (var i=0; i < movies.Movies.length; i++ ){ %>
-                    <li><a href="/starwars_episode?movie_title=<%=  movies.Movies[i].Title %>"><strong><%= movies.Movies[i].Title %></strong></a></li>
+                <% for (var i=0; i < movies_fw.Movies.length; i++ ){ %>
+                    <li><a href="/starwars_episode?api='fw'&movie_title=<%=  movies_fw.Movies[i].Title %>"><strong><%= movies_fw.Movies[i].Title %> (FW) </strong></a></li>
                 <% } %>
             </ul>
-        </div>  
+        </div> 
+        <div class= "row">
+          <ul>
+              <% for (var i=0; i < movies_cw.Movies.length; i++ ){ %>
+                  <li><a href="/starwars_episode?api='cw'&movie_title=<%=  movies_cw.Movies[i].Title %>"><strong><%= movies_cw.Movies[i].Title %> (CW) </strong></a></li>
+              <% } %>
+          </ul>
+      </div>   
       </div>
     
 
