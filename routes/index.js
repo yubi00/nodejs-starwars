@@ -143,7 +143,6 @@ exports.single_movie = async (req, res) => {
         single_movie = single_movie_response.data;
         
         res.render('movie_single', {
-            movie_title: movie_title,
             single_movie: single_movie
         }) 
     
