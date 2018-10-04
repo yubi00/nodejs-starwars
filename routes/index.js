@@ -1,7 +1,7 @@
-var axios = require('axios');
-var single_movie = [];
+const axios = require('axios');
+let single_movie = [];
 
-var options_fw = {
+let options_fw = {
     url: 'http://webjetapitest.azurewebsites.net/api/filmworld/movies',
     method: 'GET',
     headers: {
@@ -9,7 +9,7 @@ var options_fw = {
     }
 }
 
-var options_cw = {
+let options_cw = {
     url: 'http://webjetapitest.azurewebsites.net/api/cinemaworld/movies',
     method: 'GET',
     headers: {
@@ -90,7 +90,7 @@ exports.home =  function (req, res) {
         });
     }
     catch(e) {
-        console.log("Error: "+e);
+        console.log("Oops Error: "+e);
     }
           
 };
@@ -100,11 +100,11 @@ exports.single_movie = async (req, res) => {
     
     try {
         movie_title = req.query.movie_title;
-        var fw_movieid = '';
-        var cw_movieid = '';
-        var price_fw = 0; 
-        var price_cw = 0;
-        var options = '';
+        let fw_movieid = '';
+        let cw_movieid = '';
+        let price_fw = 0; 
+        let price_cw = 0;
+        let options = '';
 
         if(isExist(movie_title, store.filmworld) === true && isExist(movie_title, store.cinemaworld) === true){
             fw_movieid = getMovieID(movie_title, store.filmworld);
@@ -162,8 +162,8 @@ exports.notfound =  function(req, res){
 };
 
 function getMovieID(movie_title, movies_api) {
-    var movieid = '';
-    for(var i=0; i< movies_api.length; i++) {
+    let movieid = '';
+    for(let i=0; i< movies_api.length; i++) {
         if((movie_title) === (movies_api[i].Title)){
             movieid = movies_api[i].ID;
             return movieid;
@@ -181,7 +181,7 @@ function removeDuplicity(datas){
 }
 
 function isExist(movie_title, movies_api) {
-    for(var i=0; i< movies_api.length; i++) {
+    for(let i=0; i< movies_api.length; i++) {
         if((movie_title) === (movies_api[i].Title)){
            return true;
         }
@@ -189,3 +189,4 @@ function isExist(movie_title, movies_api) {
     }
     return false;
 }
+
